@@ -29,6 +29,9 @@ npm install bcryptjs
 # 安装 Crypto-js 加密库
 npm install crypto-js
 
+# 安装 Eccrypto-js 椭圆曲线加密库
+npm install eccrypto-js
+
 # 安装 Zxcvbn 密码强度库
 npm install zxcvbn
 
