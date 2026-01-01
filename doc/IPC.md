@@ -160,7 +160,8 @@
   {
     "user_id": number, // 用户ID
     "old_root_password": "string", // 旧根口令
-    "new_root_password": "string" // 新根口令
+    "new_root_password": "string", // 新根口令
+    "new_root_password_hint": "string" // 新根口令提示
   }
   ```
 - **主进程→渲染进程**：`root:password:update:reply`

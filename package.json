@@ -1,12 +1,23 @@
 {
   "name": "password-manager",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A password manager desktop application",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ppbong/password-manager.git"
+  },
+  "author": "ppbong",
+  "license": "MIT",
   "type": "module",
+  "main": "dist/main/index.js",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "electron:dev": "vite --mode electron",
+    "electron:build": "vue-tsc --noEmit && vite build && electron-builder",
+    "electron:rebuild": "electron-rebuild -f -w better-sqlite3"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
