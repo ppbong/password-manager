@@ -1,27 +1,5 @@
-<template>
-  <div class="login-container">
-    <el-card class="login-card">
-      <template #header>
-        <div class="card-header">
-          <h2>用户登录</h2>
-        </div>
-      </template>
-      <el-form :model="loginForm" :rules="loginRules" ref="loginFormRef" label-width="100px">
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="loginForm.username" placeholder="请输入用户名" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="口令" prop="password">
-          <el-input v-model="loginForm.password" type="password" placeholder="请输入口令" show-password autocomplete="off" />
-        </el-form-item>
-        <el-button type="primary" @click="handleLogin" :loading="loading" class="login-btn">登录</el-button>
-        <el-button @click="handleRegister" class="register-btn">注册</el-button>
-      </el-form>
-    </el-card>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user'
 import { ElMessage } from 'element-plus'
@@ -78,14 +56,29 @@ const handleLogin = async () => {
 const handleRegister = () => {
   router.push('/register')
 }
-
-onMounted(() => {
-  if (!window.electronAPI) {
-    ElMessage.error('electronAPI 未初始化')
-    return
-  }
-})
 </script>
+
+<template>
+  <div class="login-container">
+    <el-card class="login-card">
+      <template #header>
+        <div class="card-header">
+          <h2>用户登录</h2>
+        </div>
+      </template>
+      <el-form :model="loginForm" :rules="loginRules" ref="loginFormRef" label-width="100px">
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="loginForm.username" placeholder="请输入用户名" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="口令" prop="password">
+          <el-input v-model="loginForm.password" type="password" placeholder="请输入口令" show-password autocomplete="off" />
+        </el-form-item>
+        <el-button type="primary" @click="handleLogin" :loading="loading" class="login-btn">登录</el-button>
+        <el-button @click="handleRegister" class="register-btn">注册</el-button>
+      </el-form>
+    </el-card>
+  </div>
+</template>
 
 <style scoped>
 .login-container {

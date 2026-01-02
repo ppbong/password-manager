@@ -283,7 +283,7 @@ ipcMain.handle('root:password:update', async (_, data) => {
 })
 
 // 根口令状态查看
-ipcMain.handle('root:password:status:get', async (_, data) => {
+ipcMain.handle('root:password:status', async (_, data) => {
   try {
     // 查找根口令记录
     const rootPasswordRecord = db.prepare('SELECT * FROM root_passwords WHERE user_id = ?').get(data.user_id) as any

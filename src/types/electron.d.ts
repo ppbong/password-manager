@@ -250,13 +250,11 @@ export declare interface RootPasswordStatusResponse extends BaseResponse<RootPas
 
 /**
  * 平台分类创建请求参数
- * @property {number} user_id - 用户ID
  * @property {string} code - 分类编码
  * @property {string} name - 分类名称
  * @property {string} description - 分类描述
  */
 export declare interface PlatformCategoryCreateRequest {
-  user_id: number
   code: string
   name: string
   description: string

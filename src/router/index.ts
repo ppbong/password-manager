@@ -1,7 +1,4 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import LoginView from '../views/LoginView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -13,21 +10,62 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: () => import('../views/LoginView.vue')
     },
     {
       path: '/register',
       name: 'register',
-      component: RegisterView
+      component: () => import('../views/RootPasswordView.vue')
     },
     {
       path: '/home',
       name: 'home',
-      component: HomeView,
+      component: () => import('../views/HomeView.vue'),
       meta: {
         requiresAuth: true
       },
-      children: []
+      children: [
+        {
+          path: 'userInfo',
+          name: 'UserInfo',
+          component: () => import('../views/UserInfoView.vue')
+        },
+        {
+          path: 'passwordManager',
+          name: 'Password',
+          component: () => import('../views/PasswordView.vue')
+        },
+        {
+          path: 'password/:passwordId',
+          name: 'PasswordDetail',
+          component: () => import('../views/PasswordDetailView.vue')
+        },
+        {
+          path: 'password/:passwordId/history',
+          name: 'PasswordHistory',
+          component: () => import('../views/PasswordHistoryView.vue')
+        },
+        {
+          path: 'password/:passwordId/history/:historyId',
+          name: 'PasswordHistoryDetail',
+          component: () => import('../views/PasswordHistoryDetailView.vue')
+        },
+        {
+          path: 'categoryManager',
+          name: 'Category',
+          component: () => import('../views/CategoryView.vue')
+        },
+        {
+          path: 'rootPasswordManager',
+          name: 'RootPassword',
+          component: () => import('../views/RootPasswordView.vue')
+        },
+        {
+          path: 'dataManager',
+          name: 'Data',
+          component: () => import('../views/DataView.vue')
+        },
+      ]
     }
   ]
 })

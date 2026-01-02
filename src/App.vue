@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { onMounted } from 'vue'
+import { ElMessage } from 'element-plus'
+
+onMounted(() => {
+  if (!window.electronAPI) {
+    ElMessage.error('electronAPI 未初始化')
+    return
+  }
+})
+</script>
+
 <template>
   <div class="app-container">
     <router-view />

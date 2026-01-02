@@ -1,44 +1,5 @@
-<template>
-  <div class="register-container">
-    <el-card class="register-card">
-      <template #header>
-        <div class="card-header">
-          <h2>用户注册</h2>
-        </div>
-      </template>
-      <el-form :model="registerForm" :rules="registerRules" ref="registerFormRef" label-width="120px">
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="registerForm.username" placeholder="请输入用户名" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="口令" prop="password">
-          <el-input v-model="registerForm.password" type="password" placeholder="请输入口令" show-password autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="确认口令" prop="confirmPassword">
-          <el-input v-model="registerForm.confirmPassword" type="password" placeholder="请确认口令" show-password autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="registerForm.name" placeholder="请输入姓名" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="registerForm.email" placeholder="请输入邮箱" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="手机" prop="phone">
-          <el-input v-model="registerForm.phone" placeholder="请输入手机" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="留存信息" prop="remark">
-          <el-input v-model="registerForm.remark" type="textarea" placeholder="请输入留存信息" :rows="2" autocomplete="off" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handleRegister" :loading="loading" class="register-btn">注册</el-button>
-          <el-button @click="handleLogin" class="login-btn">返回登录</el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import type { UserRegisterRequest } from '../types/electron'
@@ -123,14 +84,46 @@ const handleRegister = async () => {
 const handleLogin = () => {
   router.push('/login')
 }
-
-onMounted(() => {
-  if (!window.electronAPI) {
-    ElMessage.error('electronAPI 未初始化')
-    return
-  }
-})
 </script>
+
+<template>
+  <div class="register-container">
+    <el-card class="register-card">
+      <template #header>
+        <div class="card-header">
+          <h2>用户注册</h2>
+        </div>
+      </template>
+      <el-form :model="registerForm" :rules="registerRules" ref="registerFormRef" label-width="120px">
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="registerForm.username" placeholder="请输入用户名" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="口令" prop="password">
+          <el-input v-model="registerForm.password" type="password" placeholder="请输入口令" show-password autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="确认口令" prop="confirmPassword">
+          <el-input v-model="registerForm.confirmPassword" type="password" placeholder="请确认口令" show-password autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="registerForm.name" placeholder="请输入姓名" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="registerForm.email" placeholder="请输入邮箱" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="手机" prop="phone">
+          <el-input v-model="registerForm.phone" placeholder="请输入手机" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="留存信息" prop="remark">
+          <el-input v-model="registerForm.remark" type="textarea" placeholder="请输入留存信息" :rows="2" autocomplete="off" />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handleRegister" :loading="loading" class="register-btn">注册</el-button>
+          <el-button @click="handleLogin" class="login-btn">返回登录</el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+  </div>
+</template>
 
 <style scoped>
 .register-container {
