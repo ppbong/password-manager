@@ -34,7 +34,7 @@ const handleDropdownCommand = (command: string) => {
 
 <template>
   <div class="home-container">
-    <el-container>
+    <el-container class="full-height">
       <el-header class="header">
         <div class="header-left">
           <div class="logo-section">
@@ -68,7 +68,7 @@ const handleDropdownCommand = (command: string) => {
           </el-dropdown>
         </div>
       </el-header>
-      <el-container>
+      <el-container class="main-container">
         <el-aside class="sidebar">
           <el-menu 
             :default-active="activeMenuIndex" 
@@ -101,6 +101,11 @@ const handleDropdownCommand = (command: string) => {
           <router-view></router-view>
         </el-main>
       </el-container>
+      <el-footer class="footer">
+        <div class="footer-content">
+          <span>密码管理系统 © 2025</span>
+        </div>
+      </el-footer>
     </el-container>
   </div>
 </template>
@@ -112,19 +117,41 @@ const handleDropdownCommand = (command: string) => {
   background: var(--bg-secondary);
 }
 
-.home-container .el-container {
+.full-height {
+  flex-direction: column;
   height: 100%;
 }
 
+.main-container {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
 .header {
-  background: var(--bg-primary);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
   border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 24px;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   height: 64px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .header-left {
@@ -153,7 +180,8 @@ const handleDropdownCommand = (command: string) => {
 .title {
   font-size: 20px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header-right {
@@ -169,14 +197,16 @@ const handleDropdownCommand = (command: string) => {
   padding: 8px 16px;
   border-radius: var(--radius-full);
   transition: all 0.3s;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 .user-info:hover {
-  background: var(--bg-tertiary);
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .user-avatar {
@@ -192,8 +222,13 @@ const handleDropdownCommand = (command: string) => {
 
 .user-name {
   font-size: 14px;
-  color: var(--text-primary);
+  color: white;
   font-weight: 500;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+:deep(.user-info .el-icon--right) {
+  color: white;
 }
 
 .sidebar {
@@ -201,6 +236,7 @@ const handleDropdownCommand = (command: string) => {
   width: 200px;
   border-right: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
 }
 
 .sidebar-menu {
@@ -240,6 +276,24 @@ const handleDropdownCommand = (command: string) => {
   background: var(--bg-secondary);
   padding: 24px;
   overflow-y: auto;
+  flex: 1;
+}
+
+.footer {
+  background: var(--bg-primary);
+  border-top: 1px solid var(--border-color);
+  padding: 0;
+  height: 50px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-content {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
 }
 
 :deep(.el-dropdown-menu__item) {

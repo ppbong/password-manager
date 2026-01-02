@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore, usePasswordStore } from '../stores'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Search, Plus, Unlock, View, Edit, Delete } from '@element-plus/icons-vue'
+import { Search, Plus, Unlock, View, Edit, Delete, Lock } from '@element-plus/icons-vue'
 import PasswordAdd from '../components/PasswordAdd.vue'
 import PasswordEdit from '../components/PasswordEdit.vue'
 import RootPasswordDialog from '../components/RootPasswordDialog.vue'
@@ -164,6 +164,9 @@ onMounted(() => {
       <template #header>
         <div class="card-header">
           <div class="header-left">
+            <div class="header-icon">
+              <el-icon :size="24"><Lock /></el-icon>
+            </div>
             <h2>平台口令管理</h2>
           </div>
           <el-button type="primary" @click="showAddDialog = true" size="large">
@@ -211,7 +214,7 @@ onMounted(() => {
         <el-table-column prop="platform_account" label="平台账号" />
         <el-table-column prop="created_at" label="创建时间" width="180" />
         <el-table-column prop="updated_at" label="更新时间" width="180" />
-        <el-table-column label="操作" width="320" fixed="right">
+        <el-table-column label="操作" width="340" fixed="right">
           <template #default="scope">
             <el-button type="primary" size="small" @click="handleViewDetail(scope.row)">
               <el-icon><Unlock /></el-icon>
@@ -263,7 +266,7 @@ onMounted(() => {
 
 <style scoped>
 .password-container {
-  padding: 0;
+  padding: 20px;
 }
 
 .main-card {
@@ -347,13 +350,40 @@ onMounted(() => {
   background: var(--bg-tertiary);
   color: var(--text-primary);
   font-weight: 600;
+  padding: 16px 12px;
 }
 
 :deep(.password-table .el-table__body tr:hover > td) {
-  background: var(--bg-tertiary);
+  background: var(--bg-secondary) !important;
 }
 
 :deep(.password-table .el-table__body td) {
-  color: var(--text-primary);
+  color: var(--text-secondary);
+  padding: 16px 12px;
+}
+
+:deep(.password-table .operation-column) {
+  background: var(--bg-primary);
+}
+
+:deep(.password-table .operation-column .cell) {
+  padding: 0;
+}
+
+.table-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all 0.3s;
+  margin-right: 8px;
+}
+
+.table-btn:last-child {
+  margin-right: 0;
+}
+
+.table-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 </style>

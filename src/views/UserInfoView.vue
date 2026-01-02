@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useUserStore } from '../stores/user'
 import { ElMessage } from 'element-plus'
+import { User } from '@element-plus/icons-vue'
 import UserInfoEditDialog from '../components/UserInfoEditDialog.vue'
 import UserPasswordChangeDialog from '../components/UserPasswordChangeDialog.vue'
 import type { UserInfoResponseData } from '../types/electron'
@@ -65,7 +66,12 @@ onMounted(() => {
     <el-card v-loading="loading">
       <template #header>
         <div class="card-header">
-          <h2>个人信息</h2>
+          <div class="header-left">
+            <div class="header-icon">
+              <el-icon :size="24"><User /></el-icon>
+            </div>
+            <h2>个人信息</h2>
+          </div>
           <div class="header-actions">
             <el-button type="primary" @click="handleEditInfo">修改基本信息</el-button>
             <el-button @click="handleChangePassword">修改登录口令</el-button>

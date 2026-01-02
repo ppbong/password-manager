@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useUserStore } from '../stores'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { Document, Download, Refresh, RefreshLeft } from '@element-plus/icons-vue'
 import type { DataOperationLogsResponseData } from '../types/electron'
 
 const userStore = useUserStore()
@@ -129,19 +130,27 @@ onMounted(() => {
 
 <template>
   <div class="data-container">
-    <el-card>
+    <el-card class="data-card">
       <template #header>
-        <h2>数据管理</h2>
+        <div class="card-header">
+          <div class="header-left">
+            <div class="header-icon">
+              <el-icon :size="24"><Document /></el-icon>
+            </div>
+            <h2>数据管理</h2>
+          </div>
+          <div class="header-actions">
+            <el-button type="primary" @click="handleBackup" :loading="backupLoading" size="large">
+              <el-icon><Download /></el-icon>
+              <span>备份数据</span>
+            </el-button>
+            <el-button @click="loadOperationLogs" :loading="logsLoading" size="large">
+              <el-icon><Refresh /></el-icon>
+              <span>刷新日志</span>
+            </el-button>
+          </div>
+        </div>
       </template>
-
-      <div class="data-actions">
-        <el-button type="primary" @click="handleBackup" :loading="backupLoading">
-          备份数据
-        </el-button>
-        <el-button @click="loadOperationLogs" :loading="logsLoading">
-          刷新日志
-        </el-button>
-      </div>
 
       <el-alert
         title="提示"
@@ -149,16 +158,15 @@ onMounted(() => {
         description="数据管理功能用于备份和恢复您的密码数据。请定期备份数据以防止数据丢失。恢复数据将覆盖当前数据，请谨慎操作。"
         :closable="false"
         show-icon
-        style="margin-top: 20px"
       />
 
       <el-divider />
 
       <div class="logs-section">
         <h3>操作日志</h3>
-        <el-table :data="operationLogs" style="width: 100%" v-loading="logsLoading">
+        <el-table :data="operationLogs" style="width: 100%" v-loading="logsLoading" class="data-table">
           <el-table-column prop="operation_time" label="操作时间" width="180" />
-          <el-table-column prop="operation_type" label="操作类型" width="100">
+          <el-table-column prop="operation_type" label="操作类型" width="120">
             <template #default="scope">
               <el-tag :type="getOperationTypeTag(scope.row.operation_type)">
                 {{ scope.row.operation_type }}
@@ -167,7 +175,7 @@ onMounted(() => {
           </el-table-column>
           <el-table-column prop="file_name" label="文件名" min-width="200" />
           <el-table-column prop="operator" label="操作人" width="150" />
-          <el-table-column label="操作" width="100" fixed="right">
+          <el-table-column label="操作" width="100" fixed="right" class-name="operation-column">
             <template #default="scope">
               <el-button
                 v-if="scope.row.operation_type === '备份'"
@@ -175,8 +183,10 @@ onMounted(() => {
                 size="small"
                 @click="handleRestore(scope.row.file_name)"
                 :loading="restoreLoading"
+                class="table-btn"
               >
-                恢复
+                <el-icon><RefreshLeft /></el-icon>
+                <span>恢复</span>
               </el-button>
             </template>
           </el-table-column>
@@ -223,21 +233,16 @@ onMounted(() => {
   box-shadow: var(--shadow-md);
 }
 
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
 .card-header h2 {
   margin: 0;
   font-size: 20px;
   font-weight: 600;
   color: var(--text-primary);
-}
-
-.data-actions {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.data-alert {
-  margin-bottom: 20px;
 }
 
 .logs-section {
@@ -251,6 +256,11 @@ onMounted(() => {
   color: var(--text-primary);
 }
 
+:deep(.data-table) {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
 :deep(.data-table .el-table__header-wrapper) {
   background: var(--bg-tertiary);
 }
@@ -259,6 +269,7 @@ onMounted(() => {
   background: var(--bg-tertiary);
   color: var(--text-primary);
   font-weight: 600;
+  padding: 16px 12px;
 }
 
 :deep(.data-table .el-table__body tr:hover > td) {
@@ -267,6 +278,32 @@ onMounted(() => {
 
 :deep(.data-table .el-table__body td) {
   color: var(--text-secondary);
+  padding: 16px 12px;
+}
+
+:deep(.data-table .operation-column) {
+  background: var(--bg-primary);
+}
+
+:deep(.data-table .operation-column .cell) {
+  padding: 0;
+}
+
+.table-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all 0.3s;
+  margin-right: 8px;
+}
+
+.table-btn:last-child {
+  margin-right: 0;
+}
+
+.table-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 :deep(.el-button) {

@@ -102,15 +102,15 @@ onMounted(() => {
 
       <el-table :data="passwordHistory" style="width: 100%" v-loading="loading" class="history-table">
         <el-table-column prop="operated_at" label="操作时间" width="180" />
-        <el-table-column prop="operation_type" label="操作类型" width="100">
+        <el-table-column prop="operation_type" label="操作类型" width="120">
           <template #default="scope">
             <el-tag :type="getChangeTypeTag(scope.row.operation_type)">
               {{ scope.row.operation_type }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="platform_name" label="平台名称" width="150" />
-        <el-table-column prop="platform_account" label="平台账号" width="150" />
+        <el-table-column prop="platform_name" label="平台名称" />
+        <el-table-column prop="platform_account" label="平台账号" />
         <el-table-column prop="related_email" label="关联邮箱" width="180" />
         <el-table-column prop="related_phone" label="关联手机" width="150" />
         <el-table-column prop="remark" label="备注" show-overflow-tooltip />
@@ -137,7 +137,7 @@ onMounted(() => {
 
 <style scoped>
 .password-history-container {
-  padding: 0;
+  padding: 20px;
 }
 
 .history-card {
@@ -197,13 +197,40 @@ onMounted(() => {
   background: var(--bg-tertiary);
   color: var(--text-primary);
   font-weight: 600;
+  padding: 16px 12px;
 }
 
 :deep(.history-table .el-table__body tr:hover > td) {
-  background: var(--bg-tertiary);
+  background: var(--bg-secondary) !important;
 }
 
 :deep(.history-table .el-table__body td) {
-  color: var(--text-primary);
+  color: var(--text-secondary);
+  padding: 16px 12px;
+}
+
+:deep(.history-table .operation-column) {
+  background: var(--bg-primary);
+}
+
+:deep(.history-table .operation-column .cell) {
+  padding: 0;
+}
+
+.table-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all 0.3s;
+  margin-right: 8px;
+}
+
+.table-btn:last-child {
+  margin-right: 0;
+}
+
+.table-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 </style>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Plus, Edit, Delete } from '@element-plus/icons-vue'
+import { Plus, Edit, Delete, FolderOpened } from '@element-plus/icons-vue'
 import type { PlatformCategoryListResponseData } from '../types/electron'
 
 const loading = ref(false)
@@ -161,29 +161,34 @@ onMounted(() => {
 
 <template>
   <div class="category-container">
-    <el-card>
+    <el-card class="category-card">
       <template #header>
         <div class="card-header">
-          <h2>平台分类管理</h2>
-          <el-button type="primary" @click="showAddDialog = true">
+          <div class="header-left">
+            <div class="header-icon">
+              <el-icon :size="24"><FolderOpened /></el-icon>
+            </div>
+            <h2>平台分类管理</h2>
+          </div>
+          <el-button type="primary" @click="showAddDialog = true" size="large">
             <el-icon><Plus /></el-icon>
             <span>创建分类</span>
           </el-button>
         </div>
       </template>
 
-      <el-table :data="categories" style="width: 100%" v-loading="loading">
+      <el-table :data="categories" style="width: 100%" v-loading="loading" class="category-table">
         <el-table-column prop="code" label="分类代码" width="120" />
         <el-table-column prop="name" label="分类名称" width="150" />
         <el-table-column prop="description" label="分类描述" />
         <el-table-column prop="sort_order" label="排序" width="80" />
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" width="200" fixed="right" class-name="operation-column">
           <template #default="scope">
-            <el-button type="primary" size="small" @click="handleEdit(scope.row)">
+            <el-button type="primary" size="small" @click="handleEdit(scope.row)" class="table-btn">
               <el-icon><Edit /></el-icon>
               <span>修改</span>
             </el-button>
-            <el-button type="danger" size="small" @click="handleDelete(scope.row)">
+            <el-button type="danger" size="small" @click="handleDelete(scope.row)" class="table-btn">
               <el-icon><Delete /></el-icon>
               <span>删除</span>
             </el-button>
@@ -272,6 +277,11 @@ onMounted(() => {
   color: var(--text-primary);
 }
 
+:deep(.category-table) {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
 :deep(.category-table .el-table__header-wrapper) {
   background: var(--bg-tertiary);
 }
@@ -280,6 +290,7 @@ onMounted(() => {
   background: var(--bg-tertiary);
   color: var(--text-primary);
   font-weight: 600;
+  padding: 16px 12px;
 }
 
 :deep(.category-table .el-table__body tr:hover > td) {
@@ -288,13 +299,30 @@ onMounted(() => {
 
 :deep(.category-table .el-table__body td) {
   color: var(--text-secondary);
+  padding: 16px 12px;
 }
 
-:deep(.el-button) {
+:deep(.category-table .operation-column) {
+  background: var(--bg-primary);
+}
+
+:deep(.category-table .operation-column .cell) {
+  padding: 0;
+}
+
+.table-btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
   transition: all 0.3s;
+  margin-right: 8px;
 }
 
-:deep(.el-button:hover) {
+.table-btn:last-child {
+  margin-right: 0;
+}
+
+.table-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }

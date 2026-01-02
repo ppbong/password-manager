@@ -151,7 +151,7 @@ onMounted(() => {
 
 <style scoped>
 .password-detail-container {
-  padding: 0;
+  padding: 20px;
 }
 
 .detail-card {

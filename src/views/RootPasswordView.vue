@@ -172,7 +172,12 @@ onMounted(() => {
     <el-card>
       <template #header>
         <div class="card-header">
-          <h2>根口令管理</h2>
+          <div class="header-left">
+            <div class="header-icon">
+              <el-icon :size="24"><Key /></el-icon>
+            </div>
+            <h2>根口令管理</h2>
+          </div>
         </div>
       </template>
 
