@@ -251,16 +251,41 @@ onMounted(() => {
   padding: 20px;
 }
 
+.root-password-card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+}
+
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
 .card-header h2 {
   margin: 0;
-  font-size: 18px;
-  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .root-password-set,
@@ -272,6 +297,29 @@ onMounted(() => {
 .root-password-set .el-button,
 .root-password-update .el-button {
   margin: 10px;
+}
+
+:deep(.el-button) {
+  transition: all 0.3s;
+}
+
+:deep(.el-button:hover) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+:deep(.el-alert) {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+:deep(.el-alert__title) {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+:deep(.el-alert__description) {
+  color: var(--text-secondary);
 }
 
 .mb-20 {

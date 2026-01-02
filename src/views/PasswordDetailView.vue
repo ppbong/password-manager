@@ -82,13 +82,13 @@ onMounted(() => {
 
 <template>
   <div class="password-detail-container">
-    <el-card>
+    <el-card class="detail-card">
       <template #header>
         <div class="card-header">
           <div class="header-left">
-            <el-button @click="handleBack" circle>
-              <el-icon><ArrowLeft /></el-icon>
-            </el-button>
+            <div class="header-icon" @click="handleBack">
+              <el-icon :size="20"><ArrowLeft /></el-icon>
+            </div>
             <h2>口令详情</h2>
           </div>
         </div>
@@ -99,7 +99,7 @@ onMounted(() => {
       </div>
 
       <div v-else-if="passwordDetail" class="password-detail-section">
-        <el-descriptions :column="1" border>
+        <el-descriptions :column="1" border class="detail-descriptions">
           <el-descriptions-item label="平台分类">
             {{ passwordDetail.category_name || '无' }}
           </el-descriptions-item>
@@ -116,9 +116,9 @@ onMounted(() => {
                 type="password"
                 show-password
                 readonly
-                style="width: 400px;"
+                size="large"
               />
-              <el-button type="primary" @click="handleCopyPassword" style="margin-left: 10px;">
+              <el-button type="primary" @click="handleCopyPassword" size="large">
                 复制
               </el-button>
             </div>
@@ -151,7 +151,13 @@ onMounted(() => {
 
 <style scoped>
 .password-detail-container {
-  padding: 20px;
+  padding: 0;
+}
+
+.detail-card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
 }
 
 .card-header {
@@ -166,18 +172,34 @@ onMounted(() => {
   gap: 12px;
 }
 
-.card-header h2 {
-  margin: 0;
-  font-size: 18px;
-  color: #333;
+.header-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
 }
 
-.password-input-section {
-  padding: 20px 0;
+.header-icon:hover {
+  transform: translateX(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .loading-section {
-  padding: 20px 0;
+  padding: 40px 0;
 }
 
 .password-detail-section {
@@ -187,5 +209,26 @@ onMounted(() => {
 .password-display {
   display: flex;
   align-items: center;
+  gap: 12px;
+}
+
+.password-display .el-input {
+  flex: 1;
+}
+
+:deep(.detail-descriptions) {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+:deep(.detail-descriptions .el-descriptions__label) {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-weight: 500;
+  width: 120px;
+}
+
+:deep(.detail-descriptions .el-descriptions__content) {
+  color: var(--text-primary);
 }
 </style>

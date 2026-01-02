@@ -102,21 +102,23 @@ const handleClose = () => {
     title="修改基本信息"
     width="500px"
     @close="handleClose"
+    class="user-info-edit-dialog"
   >
     <el-form
       ref="formRef"
       :model="form"
       :rules="rules"
       label-width="80px"
+      class="dialog-form"
     >
       <el-form-item label="姓名" prop="name">
-        <el-input v-model="form.name" placeholder="请输入姓名" />
+        <el-input v-model="form.name" placeholder="请输入姓名" class="form-input" />
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
-        <el-input v-model="form.email" placeholder="请输入邮箱" />
+        <el-input v-model="form.email" placeholder="请输入邮箱" class="form-input" />
       </el-form-item>
       <el-form-item label="手机号" prop="phone">
-        <el-input v-model="form.phone" placeholder="请输入手机号" />
+        <el-input v-model="form.phone" placeholder="请输入手机号" class="form-input" />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input
@@ -124,12 +126,90 @@ const handleClose = () => {
           type="textarea"
           :rows="3"
           placeholder="请输入备注"
+          class="form-textarea"
         />
       </el-form-item>
     </el-form>
     <template #footer>
-      <el-button @click="handleClose">取消</el-button>
-      <el-button type="primary" @click="handleConfirm">确定</el-button>
+      <el-button @click="handleClose" class="dialog-btn">取消</el-button>
+      <el-button type="primary" @click="handleConfirm" class="dialog-btn dialog-btn-primary">确定</el-button>
     </template>
   </el-dialog>
 </template>
+
+<style scoped>
+:deep(.user-info-edit-dialog .el-dialog__header) {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  border-bottom: 1px solid var(--border-color);
+  padding: 20px 24px;
+}
+
+:deep(.user-info-edit-dialog .el-dialog__title) {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+:deep(.user-info-edit-dialog .el-dialog__body) {
+  padding: 24px;
+}
+
+:deep(.user-info-edit-dialog .el-dialog__footer) {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+.dialog-form {
+  margin-top: 10px;
+}
+
+:deep(.dialog-form .el-form-item__label) {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+:deep(.form-input .el-input__wrapper) {
+  border-radius: var(--radius-md);
+  transition: all 0.3s;
+  box-shadow: 0 0 0 1px var(--border-color) inset;
+}
+
+:deep(.form-input .el-input__wrapper:hover) {
+  box-shadow: 0 0 0 1px var(--primary-color) inset;
+}
+
+:deep(.form-input .el-input__wrapper.is-focus) {
+  box-shadow: 0 0 0 1px var(--primary-color) inset;
+}
+
+:deep(.form-textarea .el-textarea__inner) {
+  border-radius: var(--radius-md);
+  transition: all 0.3s;
+  box-shadow: 0 0 0 1px var(--border-color) inset;
+}
+
+:deep(.form-textarea .el-textarea__inner:hover) {
+  box-shadow: 0 0 0 1px var(--primary-color) inset;
+}
+
+:deep(.form-textarea .el-textarea__inner:focus) {
+  box-shadow: 0 0 0 1px var(--primary-color) inset;
+}
+
+.dialog-btn {
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.dialog-btn-primary {
+  background: var(--gradient-primary);
+  border: none;
+}
+
+.dialog-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+</style>

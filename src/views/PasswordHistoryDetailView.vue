@@ -97,9 +97,9 @@ onMounted(() => {
       <template #header>
         <div class="card-header">
           <div class="header-left">
-            <el-button @click="handleBack" circle>
-              <el-icon><ArrowLeft /></el-icon>
-            </el-button>
+            <div class="header-icon" @click="handleBack">
+              <el-icon :size="20"><ArrowLeft /></el-icon>
+            </div>
             <h2>历史记录详情</h2>
           </div>
         </div>
@@ -165,6 +165,12 @@ onMounted(() => {
   padding: 20px;
 }
 
+.detail-card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+}
+
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -174,13 +180,33 @@ onMounted(() => {
 .header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+}
+
+.header-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-icon:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .card-header h2 {
   margin: 0;
-  font-size: 18px;
-  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .password-input-section {
@@ -189,5 +215,25 @@ onMounted(() => {
 
 .detail-content {
   margin-top: 20px;
+}
+
+:deep(.detail-descriptions .el-descriptions__label) {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-weight: 500;
+  width: 140px;
+}
+
+:deep(.detail-descriptions .el-descriptions__body) {
+  background: var(--bg-primary);
+}
+
+:deep(.detail-descriptions .el-descriptions__content) {
+  color: var(--text-secondary);
+}
+
+.info-value {
+  font-size: 14px;
+  color: var(--text-secondary);
 }
 </style>

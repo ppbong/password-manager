@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { User, Lock, Message, Phone } from '@element-plus/icons-vue'
 import type { UserRegisterRequest } from '../types/electron'
 
 const router = useRouter()
@@ -88,38 +89,101 @@ const handleLogin = () => {
 
 <template>
   <div class="register-container">
+    <div class="register-background"></div>
+    <div class="register-background-2"></div>
     <el-card class="register-card">
       <template #header>
         <div class="card-header">
-          <h2>用户注册</h2>
+          <div class="logo-section">
+            <div class="logo-icon">
+              <el-icon :size="32"><Lock /></el-icon>
+            </div>
+            <h2>用户注册</h2>
+          </div>
         </div>
       </template>
-      <el-form :model="registerForm" :rules="registerRules" ref="registerFormRef" label-width="120px">
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="registerForm.username" placeholder="请输入用户名" autocomplete="off" />
+      <el-form :model="registerForm" :rules="registerRules" ref="registerFormRef" label-width="0">
+        <el-form-item prop="username">
+          <el-input 
+            v-model="registerForm.username" 
+            placeholder="请输入用户名" 
+            autocomplete="off"
+            size="large"
+            :prefix-icon="User"
+          />
         </el-form-item>
-        <el-form-item label="口令" prop="password">
-          <el-input v-model="registerForm.password" type="password" placeholder="请输入口令" show-password autocomplete="off" />
+        <el-form-item prop="password">
+          <el-input 
+            v-model="registerForm.password" 
+            type="password" 
+            placeholder="请输入口令" 
+            show-password 
+            autocomplete="off"
+            size="large"
+            :prefix-icon="Lock"
+          />
         </el-form-item>
-        <el-form-item label="确认口令" prop="confirmPassword">
-          <el-input v-model="registerForm.confirmPassword" type="password" placeholder="请确认口令" show-password autocomplete="off" />
+        <el-form-item prop="confirmPassword">
+          <el-input 
+            v-model="registerForm.confirmPassword" 
+            type="password" 
+            placeholder="请确认口令" 
+            show-password 
+            autocomplete="off"
+            size="large"
+            :prefix-icon="Lock"
+          />
         </el-form-item>
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="registerForm.name" placeholder="请输入姓名" autocomplete="off" />
+        <el-form-item prop="name">
+          <el-input 
+            v-model="registerForm.name" 
+            placeholder="请输入姓名" 
+            autocomplete="off"
+            size="large"
+            :prefix-icon="User"
+          />
         </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="registerForm.email" placeholder="请输入邮箱" autocomplete="off" />
+        <el-form-item prop="email">
+          <el-input 
+            v-model="registerForm.email" 
+            placeholder="请输入邮箱" 
+            autocomplete="off"
+            size="large"
+            :prefix-icon="Message"
+          />
         </el-form-item>
-        <el-form-item label="手机" prop="phone">
-          <el-input v-model="registerForm.phone" placeholder="请输入手机" autocomplete="off" />
+        <el-form-item prop="phone">
+          <el-input 
+            v-model="registerForm.phone" 
+            placeholder="请输入手机" 
+            autocomplete="off"
+            size="large"
+            :prefix-icon="Phone"
+          />
         </el-form-item>
-        <el-form-item label="留存信息" prop="remark">
-          <el-input v-model="registerForm.remark" type="textarea" placeholder="请输入留存信息" :rows="2" autocomplete="off" />
+        <el-form-item prop="remark">
+          <el-input 
+            v-model="registerForm.remark" 
+            type="textarea" 
+            placeholder="请输入留存信息" 
+            :rows="2" 
+            autocomplete="off"
+            size="large"
+          />
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handleRegister" :loading="loading" class="register-btn">注册</el-button>
-          <el-button @click="handleLogin" class="login-btn">返回登录</el-button>
-        </el-form-item>
+        <el-button 
+          type="primary" 
+          @click="handleRegister" 
+          :loading="loading" 
+          class="register-btn"
+          size="large"
+        >
+          注册
+        </el-button>
+        <div class="login-link">
+          <span>已有账号？</span>
+          <el-link type="primary" @click="handleLogin">立即登录</el-link>
+        </div>
       </el-form>
     </el-card>
   </div>
@@ -130,14 +194,14 @@ const handleLogin = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  background: var(--gradient-primary);
   position: relative;
   overflow: hidden;
+  padding: 20px;
 }
 
-.register-container::before {
-  content: '';
+.register-background {
   position: absolute;
   top: -50%;
   left: -50%;
@@ -147,8 +211,7 @@ const handleLogin = () => {
   animation: rotate 20s linear infinite;
 }
 
-.register-container::after {
-  content: '';
+.register-background-2 {
   position: absolute;
   top: 0;
   left: 0;
@@ -170,52 +233,130 @@ const handleLogin = () => {
 }
 
 .register-card {
-  width: 500px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.95);
+  width: 100%;
+  max-width: 480px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
   position: relative;
   z-index: 1;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card-header {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 8px 0;
+}
+
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: var(--shadow-lg);
 }
 
 .card-header h2 {
   margin: 0;
-  color: #667eea;
+  color: var(--text-primary);
   font-weight: 600;
+  font-size: 24px;
 }
 
-.register-btn {
-  width: 40%;
-}
-
-.login-btn {
-  width: 40%;
-}
-
-:deep(.el-form-item__label) {
-  color: #667eea;
-  font-weight: 500;
+:deep(.el-form-item) {
+  margin-bottom: 20px;
 }
 
 :deep(.el-input__wrapper) {
-  box-shadow: 0 0 0 1px #dcdfe6 inset;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
   transition: all 0.3s;
+  padding: 8px 16px;
 }
 
 :deep(.el-input__wrapper:hover) {
-  box-shadow: 0 0 0 1px #667eea inset;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
 
 :deep(.el-input__wrapper.is-focus) {
-  box-shadow: 0 0 0 1px #667eea inset;
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+:deep(.el-input__inner) {
+  font-size: 15px;
+}
+
+:deep(.el-textarea__inner) {
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s;
+  font-size: 15px;
+}
+
+:deep(.el-textarea__inner:hover) {
+  box-shadow: var(--shadow-md);
+}
+
+:deep(.el-textarea__inner:focus) {
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.register-btn {
+  width: 100%;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 8px;
+  border-radius: var(--radius-md);
+  background: var(--gradient-primary);
+  border: none;
+  transition: all 0.3s;
+}
+
+.register-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.login-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.login-link .el-link {
+  font-weight: 500;
 }
 </style>

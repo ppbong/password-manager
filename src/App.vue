@@ -22,7 +22,7 @@ onMounted(() => {
   height: 100vh;
   margin: 0 auto;
   padding: 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--bg-secondary);
   position: relative;
   overflow: hidden;
 }

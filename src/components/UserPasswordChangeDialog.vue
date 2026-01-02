@@ -101,12 +101,14 @@ const handleClose = () => {
     title="修改登录口令"
     width="500px"
     @close="handleClose"
+    class="password-change-dialog"
   >
     <el-form
       ref="formRef"
       :model="form"
       :rules="rules"
       label-width="100px"
+      class="dialog-form"
     >
       <el-form-item label="旧口令" prop="old_password">
         <el-input
@@ -114,6 +116,7 @@ const handleClose = () => {
           type="password"
           placeholder="请输入旧口令"
           show-password
+          class="form-input"
         />
       </el-form-item>
       <el-form-item label="新口令" prop="new_password">
@@ -122,6 +125,7 @@ const handleClose = () => {
           type="password"
           placeholder="请输入新口令"
           show-password
+          class="form-input"
         />
       </el-form-item>
       <el-form-item label="确认口令" prop="confirm_password">
@@ -130,12 +134,76 @@ const handleClose = () => {
           type="password"
           placeholder="请再次输入新口令"
           show-password
+          class="form-input"
         />
       </el-form-item>
     </el-form>
     <template #footer>
-      <el-button @click="handleClose">取消</el-button>
-      <el-button type="primary" @click="handleConfirm">确定</el-button>
+      <el-button @click="handleClose" class="dialog-btn">取消</el-button>
+      <el-button type="primary" @click="handleConfirm" class="dialog-btn dialog-btn-primary">确定</el-button>
     </template>
   </el-dialog>
 </template>
+
+<style scoped>
+:deep(.password-change-dialog .el-dialog__header) {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  border-bottom: 1px solid var(--border-color);
+  padding: 20px 24px;
+}
+
+:deep(.password-change-dialog .el-dialog__title) {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+:deep(.password-change-dialog .el-dialog__body) {
+  padding: 24px;
+}
+
+:deep(.password-change-dialog .el-dialog__footer) {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+.dialog-form {
+  margin-top: 10px;
+}
+
+:deep(.dialog-form .el-form-item__label) {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+:deep(.form-input .el-input__wrapper) {
+  border-radius: var(--radius-md);
+  transition: all 0.3s;
+  box-shadow: 0 0 0 1px var(--border-color) inset;
+}
+
+:deep(.form-input .el-input__wrapper:hover) {
+  box-shadow: 0 0 0 1px var(--primary-color) inset;
+}
+
+:deep(.form-input .el-input__wrapper.is-focus) {
+  box-shadow: 0 0 0 1px var(--primary-color) inset;
+}
+
+.dialog-btn {
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.dialog-btn-primary {
+  background: var(--gradient-primary);
+  border: none;
+}
+
+.dialog-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+</style>

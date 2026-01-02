@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '../stores/user'
 import { ElMessage } from 'element-plus'
+import { Lock, User } from '@element-plus/icons-vue'
 import type { UserLoginRequest } from '../types/electron'
 
 const router = useRouter()
@@ -40,7 +41,7 @@ const handleLogin = async () => {
       if (result.success) {
         userStore.login(result.data, 'dummy-token')
         ElMessage.success('登录成功')
-        router.push('/home')
+        router.push('/home/passwordManager')
       } else {
         ElMessage.error(result.message)
       }
@@ -60,21 +61,53 @@ const handleRegister = () => {
 
 <template>
   <div class="login-container">
+    <div class="login-background"></div>
+    <div class="login-background-2"></div>
     <el-card class="login-card">
       <template #header>
         <div class="card-header">
-          <h2>用户登录</h2>
+          <div class="logo-section">
+            <div class="logo-icon">
+              <el-icon :size="32"><Lock /></el-icon>
+            </div>
+            <h2>密码管理系统</h2>
+          </div>
         </div>
       </template>
-      <el-form :model="loginForm" :rules="loginRules" ref="loginFormRef" label-width="100px">
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="loginForm.username" placeholder="请输入用户名" autocomplete="off" />
+      <el-form :model="loginForm" :rules="loginRules" ref="loginFormRef" label-width="0">
+        <el-form-item prop="username">
+          <el-input 
+            v-model="loginForm.username" 
+            placeholder="请输入用户名" 
+            autocomplete="off"
+            size="large"
+            :prefix-icon="User"
+          />
         </el-form-item>
-        <el-form-item label="口令" prop="password">
-          <el-input v-model="loginForm.password" type="password" placeholder="请输入口令" show-password autocomplete="off" />
+        <el-form-item prop="password">
+          <el-input 
+            v-model="loginForm.password" 
+            type="password" 
+            placeholder="请输入口令" 
+            show-password 
+            autocomplete="off"
+            size="large"
+            :prefix-icon="Lock"
+          />
         </el-form-item>
-        <el-button type="primary" @click="handleLogin" :loading="loading" class="login-btn">登录</el-button>
-        <el-button @click="handleRegister" class="register-btn">注册</el-button>
+        <el-button 
+          type="primary" 
+          @click="handleLogin" 
+          :loading="loading" 
+          class="login-btn"
+          size="large"
+        >
+          登录
+        </el-button>
+        <div class="register-link">
+          <span>还没有账号？</span>
+          <el-link type="primary" @click="handleRegister">立即注册</el-link>
+        </div>
       </el-form>
     </el-card>
   </div>
@@ -86,33 +119,31 @@ const handleRegister = () => {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--gradient-primary);
   position: relative;
   overflow: hidden;
 }
 
-.login-container::before {
-  content: '';
+.login-background {
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-  animation: rotate 20s linear infinite;
+  animation: rotate 30s linear infinite;
 }
 
-.login-container::after {
-  content: '';
+.login-background-2 {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-image: 
-    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 30%);
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.04) 0%, transparent 30%);
 }
 
 @keyframes rotate {
@@ -125,53 +156,101 @@ const handleRegister = () => {
 }
 
 .login-card {
-  width: 400px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.95);
+  width: 420px;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
   position: relative;
   z-index: 1;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card-header {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px 0;
+}
+
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: var(--shadow-md);
 }
 
 .card-header h2 {
   margin: 0;
-  color: #667eea;
+  color: var(--primary-color);
   font-weight: 600;
+  font-size: 24px;
 }
 
 .login-btn {
   width: 100%;
-}
-
-.register-btn {
-  width: 100%;
-  margin: 15px auto;
-}
-
-:deep(.el-form-item__label) {
-  color: #667eea;
+  margin-top: 20px;
+  height: 44px;
+  font-size: 16px;
   font-weight: 500;
+  border-radius: var(--radius-md);
+}
+
+.register-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+:deep(.el-form-item) {
+  margin-bottom: 24px;
 }
 
 :deep(.el-input__wrapper) {
-  box-shadow: 0 0 0 1px #dcdfe6 inset;
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  box-shadow: 0 0 0 1px var(--border-color) inset;
   transition: all 0.3s;
 }
 
 :deep(.el-input__wrapper:hover) {
-  box-shadow: 0 0 0 1px #667eea inset;
+  box-shadow: 0 0 0 1px var(--primary-color) inset;
 }
 
 :deep(.el-input__wrapper.is-focus) {
-  box-shadow: 0 0 0 1px #667eea inset;
+  box-shadow: 0 0 0 1px var(--primary-color) inset;
+}
+
+:deep(.el-input__inner) {
+  font-size: 15px;
 }
 </style>

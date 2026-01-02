@@ -37,29 +37,31 @@ const handleDropdownCommand = (command: string) => {
     <el-container>
       <el-header class="header">
         <div class="header-left">
-          <div class="logo">
-            <img src="../assets/logo.png" alt="logo">
-          </div>
-          <div class="title">
-            密码管理系统
+          <div class="logo-section">
+            <div class="logo-icon">
+              <el-icon :size="28"><Lock /></el-icon>
+            </div>
+            <div class="title">密码管理系统</div>
           </div>
         </div>
         <div class="header-right">
           <el-dropdown @command="handleDropdownCommand">
             <span class="user-info">
-              <el-icon><UserFilled /></el-icon>
-              {{ userStore.userInfo?.name || '用户' }}
+              <div class="user-avatar">
+                <el-icon :size="20"><UserFilled /></el-icon>
+              </div>
+              <span class="user-name">{{ userStore.userInfo?.name || '用户' }}</span>
               <el-icon class="el-icon--right"><ArrowDown /></el-icon>
             </span>
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item command="userInfo">
                   <el-icon><User /></el-icon>
-                  个人信息
+                  <span>个人信息</span>
                 </el-dropdown-item>
                 <el-dropdown-item command="logout">
                   <el-icon><SwitchButton /></el-icon>
-                  退出登录
+                  <span>退出登录</span>
                 </el-dropdown-item>
               </el-dropdown-menu>
             </template>
@@ -67,8 +69,12 @@ const handleDropdownCommand = (command: string) => {
         </div>
       </el-header>
       <el-container>
-        <el-aside>
-          <el-menu :default-active="activeMenuIndex" @select="handleMenuSelect">
+        <el-aside class="sidebar">
+          <el-menu 
+            :default-active="activeMenuIndex" 
+            @select="handleMenuSelect"
+            class="sidebar-menu"
+          >
             <el-menu-item index="userInfo">
               <el-icon><User /></el-icon>
               <span>用户信息</span>
@@ -91,7 +97,7 @@ const handleDropdownCommand = (command: string) => {
             </el-menu-item>
           </el-menu>
         </el-aside>
-        <el-main>
+        <el-main class="main-content">
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -103,58 +109,147 @@ const handleDropdownCommand = (command: string) => {
 .home-container {
   height: 100vh;
   width: 100vw;
+  background: var(--bg-secondary);
 }
 
 .home-container .el-container {
   height: 100%;
 }
 
-.el-aside {
-  background-color: #545c64;
-  width: 160px;
-}
-
-.el-aside .el-menu {
-  border-right: none;
-}
-
 .header {
-  background-color: #fff;
-  border-bottom: 1px solid #e6e6e6;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 24px;
+  box-shadow: var(--shadow-sm);
+  height: 64px;
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 10px;
 }
 
-.header-left h1 {
-  margin: 0;
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.title {
   font-size: 20px;
-  color: #333;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
-.header-right .user-info {
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.user-info {
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 8px 12px;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+  gap: 10px;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  transition: all 0.3s;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
 }
 
-.header-right .user-info:hover {
-  background-color: #f5f5f5;
+.user-info:hover {
+  background: var(--bg-tertiary);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
 }
 
-.el-main {
-  background-color: #f5f5f5;
-  padding: 20px;
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.user-name {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.sidebar {
+  background: var(--bg-primary);
+  width: 200px;
+  border-right: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-menu {
+  border-right: none;
+  padding: 12px 8px;
+}
+
+:deep(.sidebar-menu .el-menu-item) {
+  border-radius: var(--radius-md);
+  margin-bottom: 4px;
+  transition: all 0.3s;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+:deep(.sidebar-menu .el-menu-item:hover) {
+  background: var(--bg-secondary);
+  color: var(--primary-color);
+}
+
+:deep(.sidebar-menu .el-menu-item.is-active) {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+:deep(.sidebar-menu .el-menu-item.is-active .el-icon) {
+  color: white;
+}
+
+:deep(.sidebar-menu .el-menu-item .el-icon) {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+.main-content {
+  background: var(--bg-secondary);
+  padding: 24px;
+  overflow-y: auto;
+}
+
+:deep(.el-dropdown-menu__item) {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+}
+
+:deep(.el-dropdown-menu__item .el-icon) {
+  font-size: 16px;
 }
 </style>

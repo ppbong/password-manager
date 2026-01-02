@@ -160,11 +160,13 @@ onMounted(() => {
 
 <template>
   <div class="password-container">
-    <el-card>
+    <el-card class="main-card">
       <template #header>
         <div class="card-header">
-          <h2>平台口令管理</h2>
-          <el-button type="primary" @click="showAddDialog = true">
+          <div class="header-left">
+            <h2>平台口令管理</h2>
+          </div>
+          <el-button type="primary" @click="showAddDialog = true" size="large">
             <el-icon><Plus /></el-icon>
             <span>创建平台口令</span>
           </el-button>
@@ -178,6 +180,7 @@ onMounted(() => {
                 placeholder="请选择平台分类"
                 clearable
                 @change="loadPasswords"
+                size="large"
               >
                 <el-option v-for="item in categories" :key="item.category_id" :label="item.name" :value="item" />
               </el-select>
@@ -189,6 +192,7 @@ onMounted(() => {
                 placeholder="请输入平台名称"
                 clearable
                 @keyup.enter="loadPasswords"
+                size="large"
               >
                 <template #append>
                   <el-button @click="loadPasswords">
@@ -201,7 +205,7 @@ onMounted(() => {
         </div>
       </template>
 
-      <el-table :data="passwords" align="center" style="width: 100%" v-loading="loading">
+      <el-table :data="passwords" align="center" style="width: 100%" v-loading="loading" class="password-table">
         <el-table-column prop="category_name" label="平台分类" width="180" />
         <el-table-column prop="platform_name" label="平台名称" />
         <el-table-column prop="platform_account" label="平台账号" />
@@ -259,7 +263,13 @@ onMounted(() => {
 
 <style scoped>
 .password-container {
-  padding: 20px;
+  padding: 0;
+}
+
+.main-card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
 }
 
 .card-header {
@@ -269,21 +279,41 @@ onMounted(() => {
   margin-bottom: 16px;
 }
 
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
 .card-header h2 {
   margin: 0;
-  font-size: 18px;
-  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .filter-section {
   padding-top: 16px;
-  border-top: 1px solid #ebeef5;
+  border-top: 1px solid var(--border-color);
 }
 
 .filter-row {
   display: flex;
   gap: 24px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .filter-item {
@@ -294,12 +324,36 @@ onMounted(() => {
 
 .filter-label {
   font-size: 14px;
-  color: #606266;
+  color: var(--text-secondary);
   white-space: nowrap;
+  font-weight: 500;
 }
 
 .filter-item .el-select,
 .filter-item .el-input {
   width: 240px;
+}
+
+:deep(.password-table) {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+:deep(.password-table .el-table__header-wrapper) {
+  background: var(--bg-tertiary);
+}
+
+:deep(.password-table .el-table__header th) {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+:deep(.password-table .el-table__body tr:hover > td) {
+  background: var(--bg-tertiary);
+}
+
+:deep(.password-table .el-table__body td) {
+  color: var(--text-primary);
 }
 </style>

@@ -88,19 +88,19 @@ onMounted(() => {
 
 <template>
   <div class="password-history-container">
-    <el-card>
+    <el-card class="history-card">
       <template #header>
         <div class="card-header">
           <div class="header-left">
-            <el-button @click="handleBack" circle>
-              <el-icon><ArrowLeft /></el-icon>
-            </el-button>
+            <div class="header-icon" @click="handleBack">
+              <el-icon :size="20"><ArrowLeft /></el-icon>
+            </div>
             <h2>{{ passwordName }} - 历史记录</h2>
           </div>
         </div>
       </template>
 
-      <el-table :data="passwordHistory" style="width: 100%" v-loading="loading">
+      <el-table :data="passwordHistory" style="width: 100%" v-loading="loading" class="history-table">
         <el-table-column prop="operated_at" label="操作时间" width="180" />
         <el-table-column prop="operation_type" label="操作类型" width="100">
           <template #default="scope">
@@ -137,7 +137,13 @@ onMounted(() => {
 
 <style scoped>
 .password-history-container {
-  padding: 20px;
+  padding: 0;
+}
+
+.history-card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
 }
 
 .card-header {
@@ -152,9 +158,52 @@ onMounted(() => {
   gap: 12px;
 }
 
+.header-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-icon:hover {
+  transform: translateX(-2px);
+  box-shadow: var(--shadow-md);
+}
+
 .card-header h2 {
   margin: 0;
-  font-size: 18px;
-  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+:deep(.history-table) {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+:deep(.history-table .el-table__header-wrapper) {
+  background: var(--bg-tertiary);
+}
+
+:deep(.history-table .el-table__header th) {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+:deep(.history-table .el-table__body tr:hover > td) {
+  background: var(--bg-tertiary);
+}
+
+:deep(.history-table .el-table__body td) {
+  color: var(--text-primary);
 }
 </style>

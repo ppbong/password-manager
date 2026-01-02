@@ -116,20 +116,74 @@ onMounted(() => {
   padding: 20px;
 }
 
+.info-card {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+}
+
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.user-info-container h2 {
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.card-header h2 {
   margin: 0;
-  font-size: 18px;
-  color: #333;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
 .header-actions {
   display: flex;
   gap: 12px;
+}
+
+:deep(.info-descriptions .el-descriptions__label) {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-weight: 500;
+  width: 140px;
+}
+
+:deep(.info-descriptions .el-descriptions__body) {
+  background: var(--bg-primary);
+}
+
+:deep(.info-descriptions .el-descriptions__content) {
+  color: var(--text-secondary);
+}
+
+.info-value {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+:deep(.el-button) {
+  transition: all 0.3s;
+}
+
+:deep(.el-button:hover) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 </style>
