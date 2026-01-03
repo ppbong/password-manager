@@ -1,5 +1,113 @@
-# Vue 3 + TypeScript + Vite
+# 密码管理系统
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+一个安全、高效的密码管理桌面应用程序，基于 Vue 3、TypeScript 和 Electron 构建。
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## 功能特性
+
+### 核心功能
+- **密码管理**：安全存储和管理各类平台密码
+- **分类管理**：支持密码分类，便于组织和查找
+- **历史记录**：记录密码修改历史，支持查看和恢复
+- **根口令管理**：设置和管理根口令，确保数据安全
+- **数据管理**：支持数据备份、恢复和操作日志查看
+
+### 安全特性
+- **加密存储**：使用 AES、RSA 加密算法保护密码数据
+- **根口令保护**：通过根口令加密/解密敏感数据
+- **本地数据库**：使用 SQLite 数据库，数据完全本地化
+
+### 用户体验
+- **现代化UI**：采用玻璃拟态设计风格，界面美观
+- **响应式布局**：适配不同屏幕尺寸
+- **快捷操作**：支持密码复制、编辑、删除等快捷操作
+- **搜索过滤**：支持按名称、分类等条件搜索和过滤
+
+## 技术栈
+
+### 前端
+- **Vue 3**：渐进式 JavaScript 框架，使用 Composition API
+- **TypeScript**：JavaScript 的超集，提供类型安全
+- **Vite**：下一代前端构建工具
+- **Element Plus**：基于 Vue 3 的组件库
+- **Pinia**：Vue 3 官方推荐的状态管理库
+- **Vue Router**：Vue.js 官方路由管理器
+
+### 桌面应用
+- **Electron**：使用 Web 技术构建跨平台桌面应用
+
+### 数据存储
+- **better-sqlite3**：SQLite 数据库的 Node.js 绑定
+- **crypto-js**：JavaScript 加密库
+- **bcryptjs**：密码哈希库
+
+## 安装和运行
+
+### 环境要求
+- Node.js >= 18.0.0
+- npm >= 9.0.0
+
+### 安装依赖
+
+```bash
+npm install
+```
+
+### 开发模式
+
+#### Web 开发
+```bash
+npm run dev
+```
+
+#### Electron 开发
+```bash
+npm run electron:dev
+```
+
+### 构建
+
+#### Web 构建
+```bash
+npm run build
+```
+
+#### Electron 构建
+```bash
+npm run electron:build
+```
+
+### 预览
+
+```bash
+npm run preview
+```
+
+## 使用说明
+
+### 初始用户
+1. admin/admin123
+2. 默认用户，建议在首次使用后立即修改
+
+### 管理密码
+1. 注册用户并登录
+2. 设置用户根口令
+3. 管理用户其他平台密码（口令和保密信息由根口令加密/解密）
+
+## 许可证
+
+MIT License
+
+## 作者
+
+ppbong
+
+## 更新日志
+
+### v1.0.0
+- 初始版本发布
+- 实现密码管理功能
+- 实现密码历史记录功能
+- 实现分类管理功能
+- 实现根口令管理功能
+- 实现数据备份和恢复功能
+- 采用现代化 UI 设计
